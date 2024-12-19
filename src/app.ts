@@ -15,11 +15,10 @@ app.use(cors({ origin: ['http://localhost:5173'] }));
 //app.use('/api/v1', router);
 
 app.get('/', (req, res) => {
-    res.status(200).json({
-      message: 'Server is up and running!',
-      api_start_point: '/api/v1',
-    });
+  res.status(200).json({
+    message: 'Server is up and running!',
+    api_start_point: '/api/v1',
   });
-
+});
 
 export default app;
