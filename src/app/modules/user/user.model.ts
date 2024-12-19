@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import { IUser, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const userSchema = new Schema<IUser, UserModel>(
   {
