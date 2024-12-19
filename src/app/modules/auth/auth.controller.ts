@@ -4,7 +4,8 @@ import { AuthServices } from './auth.service';
 import { Request, Response } from 'express';
 
 const register = catchAsync(async (req: Request, res: Response) => {
-    
+    console.log('Incoming Request Body:', req.body);
+
     const result = await AuthServices.registerUser(req.body);
   
     sendResponse(res, {
