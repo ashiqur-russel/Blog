@@ -1,23 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
-import { IUser, TName } from './user.interface';
-
-export const nameSchema = new Schema<TName>({
-  firstName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-});
+import { IUser } from './user.interface';
 
 export const userSchema = new Schema<IUser>(
   {
     name: {
-      type: nameSchema,
+      type: String,
       required: true,
       trim: true,
     },

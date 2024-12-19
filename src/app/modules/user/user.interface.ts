@@ -1,10 +1,5 @@
-export type TName = {
-  firstName: string;
-  lastName: string;
-};
-
 export interface IUser {
-  name: TName;
+  name: string;
   email: string;
   password: string;
   isBlocked: boolean;
