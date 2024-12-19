@@ -14,4 +14,6 @@ router.post(
   BlogControllers.createBlog,
 );
 
+router.delete('/:id', AuthGuard('user'), BlogControllers.deleteBlog);
+
 export const BlogRoutes = router;

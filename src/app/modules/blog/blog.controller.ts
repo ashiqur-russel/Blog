@@ -26,7 +26,21 @@ const createBlog = catchAsync(async (req, res) => {
   });
 });
 
+const deleteBlog = catchAsync(async (req, res) => {
+  const token = req.headers.authorization;
+
+  const { id } = req.params;
+  const result = await BlogServices.deleteBlog(id, token as string);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Blog deleted successfully',
+  });
+});
+
 export const BlogControllers = {
   createBlog,
   getAllBlogs,
+  deleteBlog,
 };

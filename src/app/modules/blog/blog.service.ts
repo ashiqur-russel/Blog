@@ -14,9 +14,8 @@ const createBlog = async (payload: IBlog, token: string): Promise<any> => {
   }
 
   try {
+    const user = await getUserDetails(token);
 
-    const user = await getUserDetails(token)
-   
     const newBlog = new Blog({ ...payload, author: user?._id });
 
     const blog = await Blog.create(newBlog);
@@ -30,21 +29,57 @@ const createBlog = async (payload: IBlog, token: string): Promise<any> => {
   }
 };
 
-const getUserDetails = async (token: string)=>{
+const getUserDetails = async (token: string) => {
+  const bearerToken = token.split(' ')[1];
+  const decoded = jwt.verify(bearerToken, config.jwt_access_secret as string);
+  const { email } = decoded as JwtPayload;
 
-    const bearerToken = token.split(' ')[1];
-    const decoded = jwt.verify(bearerToken, config.jwt_access_secret as string);
-    const { email } = decoded as JwtPayload;
-
-    return await User.isUserExistsByEmail(email);
-
-}
+  return await User.getUserDetails(email);
+};
 
 const getAllBlogs = async (): Promise<IUser[]> => {
   return await User.find();
 };
 
+const deleteBlog = async (id: string, token: string): Promise<void> => {
+  try {
+    const user = await getUserDetails(token);
+
+    if (!user) {
+      throw new AppError('User not authenticated', httpStatus.UNAUTHORIZED);
+    }
+
+    const blog = await Blog.findById(id).populate<{ author: IUser }>(
+      'author',
+      'email',
+    );
+
+    if (!blog) {
+      throw new AppError('Blog not found', httpStatus.NOT_FOUND);
+    }
+
+    if (user.email !== blog.author?.email) {
+      throw new AppError(
+        'You are not authorized to delete this blog',
+        httpStatus.UNAUTHORIZED,
+      );
+    }
+
+    await Blog.findByIdAndDelete(id);
+  } catch (error) {
+    if (error instanceof AppError) {
+      throw error;
+    }
+
+    throw new AppError(
+      'Failed to delete Blog',
+      httpStatus.INTERNAL_SERVER_ERROR,
+    );
+  }
+};
+
 export const BlogServices = {
   createBlog,
   getAllBlogs,
+  deleteBlog,
 };
