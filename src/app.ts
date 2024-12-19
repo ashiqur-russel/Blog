@@ -15,7 +15,6 @@ app.use(cors({ origin: ['http://localhost:5173'] }));
 app.use('/api', router);
 app.use(globalErrorHandler);
 
-
 app.get('/', (req, res) => {
   res.status(200).json({
     message: 'Server is up and running!',
