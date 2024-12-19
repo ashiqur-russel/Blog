@@ -3,27 +3,30 @@ import AppError from '../../errors/AppError';
 import { IUser } from '../user/user.interface';
 import { User } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import httpStatus from 'http-status';
+import e from 'express';
 
 const loginUser = async (payload: TLoginUser) => {
   const { email, password } = payload;
-  console.log(email)
 
+  const user = await User.isUserExistsByEmail(email);
 
-  const user = await User.findOne({email}).select('+password');
-
-  console.log(password, user)
-
-  if (user?.password !== password) {
-    throw new AppError('Invalid credentials', httpStatus.FORBIDDEN);
+  if (!user) {
+    throw new AppError('User Not exist with the email id !', 409);
   }
 
-  const token = jwt.sign({ email: user.email }, config.jwt_access_secret as string, {
-    expiresIn: config.jwt_access_secret_expires,
-  });
+  if (await User.isPasswordMatched(password, user.password)) {
+    const JwtPayload = {
+      email,
+      role: user.role,
+    };
 
-  return { token };
+    const token = `Bearer ${jwt.sign(JwtPayload, config.jwt_access_secret as string, { expiresIn: config.jwt_access_secret_expires })}`;
+    return { token };
+  } else {
+    throw new AppError('Password is incorrect', 409);
+  }
 };
 
 const registerUser = async (payload: IUser) => {
