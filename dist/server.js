@@ -18,7 +18,7 @@ const config_1 = __importDefault(require("./app/config"));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect(config_1.default.database_url);
+            yield connectDatabase();
             app_1.default.listen(config_1.default.port, () => {
                 console.log(`app is listening on port ${config_1.default.port}`);
             });
@@ -28,4 +28,15 @@ function main() {
         }
     });
 }
+const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
+    const MONGO_URI = config_1.default.database_url;
+    try {
+        yield mongoose_1.default.connect(MONGO_URI);
+        console.log('MongoDB connection established successfully.');
+    }
+    catch (error) {
+        console.error('MongoDB connection error:', error);
+        process.exit(1);
+    }
+});
 main();
