@@ -56,6 +56,11 @@ userSchema.statics.isUserExistsByEmail = async function (email) {
   return await this.findOne({ email }).select('+password');
 };
 
+userSchema.statics.isUserBlocked = async function (id: string) {
+  const res = await User.findOne({ id });
+  return res?.isBlocked;
+};
+
 userSchema.statics.isPasswordMatched = async function (
   plainTextPassword,
   hashedPassword,

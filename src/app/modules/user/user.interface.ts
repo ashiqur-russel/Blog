@@ -13,7 +13,7 @@ export interface IUser {
 
 export interface UserModel extends Model<IUser> {
   isUserExistsByEmail(id: string): Promise<IUser>;
-  isUserBlocked(id: string): Promise<string>;
+  isUserBlocked(id: string): Promise<boolean>;
   isPasswordMatched(
     plainTextPassword: string,
     hashedPassword: string,
