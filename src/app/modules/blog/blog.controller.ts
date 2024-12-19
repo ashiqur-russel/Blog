@@ -9,16 +9,13 @@ const getAllBlogs = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Users Retieved Successful',
+    message: 'Blogs Retrieved Successfully',
     data: result,
   });
 });
 
 const createBlog = catchAsync(async (req, res) => {
   const token = req.headers.authorization;
-
-  console.log('create blog');
-
   const result = await BlogServices.createBlog(req.body, token as string);
 
   sendResponse(res, {
