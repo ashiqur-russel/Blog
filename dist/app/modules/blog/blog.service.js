@@ -19,6 +19,26 @@ const user_model_1 = require("../user/user.model");
 const http_status_1 = __importDefault(require("http-status"));
 const blog_model_1 = require("./blog.model");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const getAllBlogs = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const { search, sortBy = 'createdAt', sortOrder = 'desc', filter } = query;
+    const searchCriteria = {};
+    const sortCriteria = [];
+    if (search) {
+        searchCriteria.$or = [
+            { title: { $regex: search, $options: 'i' } },
+            { content: { $regex: search, $options: 'i' } },
+        ];
+    }
+    if (filter) {
+        searchCriteria.author = filter;
+    }
+    sortCriteria.push([sortBy, sortOrder === 'asc' ? 1 : -1]);
+    const blogs = yield blog_model_1.Blog.find(searchCriteria)
+        .sort(sortCriteria)
+        .populate('author', { name: 1, email: 1 })
+        .select('-isPublished -createdAt -updatedAt -__v');
+    return blogs;
+});
 const createBlog = (payload, token) => __awaiter(void 0, void 0, void 0, function* () {
     // this is not necessary to check as already AuthGuard is implemented on route level
     if (!token) {
@@ -49,9 +69,6 @@ const getUserDetails = (token) => __awaiter(void 0, void 0, void 0, function* ()
     const { email } = decoded;
     return yield user_model_1.User.getUserDetails(email);
 });
-const getAllBlogs = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield blog_model_1.Blog.find();
-});
 const deleteBlog = (id, token) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
@@ -75,8 +92,30 @@ const deleteBlog = (id, token) => __awaiter(void 0, void 0, void 0, function* ()
         throw new AppError_1.default('Failed to delete Blog', http_status_1.default.INTERNAL_SERVER_ERROR);
     }
 });
+const updateBlog = (id, updatedData, token) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const user = yield getUserDetails(token);
+    if (!user) {
+        throw new AppError_1.default('User not authenticated', http_status_1.default.UNAUTHORIZED);
+    }
+    const blog = yield blog_model_1.Blog.findById(id).populate('author', 'email');
+    if (!blog) {
+        throw new AppError_1.default('Blog not found', http_status_1.default.NOT_FOUND);
+    }
+    if (user.email !== ((_a = blog.author) === null || _a === void 0 ? void 0 : _a.email)) {
+        throw new AppError_1.default('You are not authorized to update this blog', http_status_1.default.UNAUTHORIZED);
+    }
+    const updatedBlog = blog_model_1.Blog.findByIdAndUpdate(id, updatedData, {
+        new: true,
+        runValidators: true,
+    })
+        .populate('author', 'name email')
+        .select('-isPublished -createdAt -updatedAt -__v');
+    return updatedBlog;
+});
 exports.BlogServices = {
     createBlog,
     getAllBlogs,
     deleteBlog,
+    updateBlog,
 };
