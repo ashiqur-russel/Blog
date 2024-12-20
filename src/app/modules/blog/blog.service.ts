@@ -45,7 +45,7 @@ const getUserDetails = async (token: string) => {
 };
 
 const getAllBlogs = async (): Promise<IUser[]> => {
-  return await User.find();
+  return await Blog.find();
 };
 
 const deleteBlog = async (id: string, token: string): Promise<void> => {

@@ -50,7 +50,7 @@ const getUserDetails = (token) => __awaiter(void 0, void 0, void 0, function* ()
     return yield user_model_1.User.getUserDetails(email);
 });
 const getAllBlogs = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield user_model_1.User.find();
+    return yield blog_model_1.Blog.find();
 });
 const deleteBlog = (id, token) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
