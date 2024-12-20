@@ -3,9 +3,9 @@ import AppError from '../../errors/AppError';
 import { IUser } from '../user/user.interface';
 import { User } from '../user/user.model';
 import httpStatus from 'http-status';
-import { IBlog } from './blog.interface';
 import { Blog } from './blog.model';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { IBlog } from './blog.interface';
 
 const createBlog = async (payload: IBlog, token: string): Promise<any> => {
   // this is not necessary to check as already AuthGuard is implemented on route level
@@ -85,12 +85,42 @@ const deleteBlog = async (id: string, token: string): Promise<void> => {
   }
 };
 
-const updateBlog = async (id: string, token: string): Promise<void> => {}
+const updateBlog = async (
+  id: string,
+  updatedData: Partial<IBlog>,
+  token: string,
+): Promise<void> => {
+  const user = await getUserDetails(token);
 
+  if (!user) {
+    throw new AppError('User not authenticated', httpStatus.UNAUTHORIZED);
+  }
+
+  const blog = await Blog.findById(id).populate<{ author: IUser }>(
+    'author',
+    'email',
+  );
+
+  if (!blog) {
+    throw new AppError('Blog not found', httpStatus.NOT_FOUND);
+  }
+
+  if (user.email !== blog.author?.email) {
+    throw new AppError(
+      'You are not authorized to update this blog',
+      httpStatus.UNAUTHORIZED,
+    );
+  }
+
+  await Blog.findByIdAndUpdate(id, updatedData, {
+    new: true,
+    runValidators: true,
+  });
+};
 
 export const BlogServices = {
   createBlog,
   getAllBlogs,
   deleteBlog,
-  updateBlog
+  updateBlog,
 };
