@@ -85,8 +85,12 @@ const deleteBlog = async (id: string, token: string): Promise<void> => {
   }
 };
 
+const updateBlog = async (id: string, token: string): Promise<void> => {}
+
+
 export const BlogServices = {
   createBlog,
   getAllBlogs,
   deleteBlog,
+  updateBlog
 };

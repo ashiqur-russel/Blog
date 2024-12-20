@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { AuthGuard } from '../../middlewares/authGuard';
 import { AdminControllers } from './admin.controller';
+import { USER_ROLE } from '../user/user.constant';
 
 const router = Router();
 
@@ -12,6 +13,10 @@ router.patch(
 );
 
 // Route to delete a blog
-router.delete('/blogs/:id');
+router.delete(
+  '/blogs/:id',
+  AuthGuard(USER_ROLE.admin),
+  AdminControllers.deleteBlog,
+);
 
 export const AdminRoutes = router;
