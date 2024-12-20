@@ -5,7 +5,7 @@ import { BlogControllers } from './blog.controller';
 import { BlogValidation } from './blog.validation';
 
 const router = express.Router();
-router.get('/blogs', BlogControllers.getAllBlogs);
+router.get('/', BlogControllers.getAllBlogs);
 
 router.post(
   '/create-blog',
