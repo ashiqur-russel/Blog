@@ -8,12 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserServices = void 0;
-const user_model_1 = require("../user/user.model");
-const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield user_model_1.User.find();
-});
-exports.UserServices = {
-    getAllUsers,
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+const catchAsync_1 = __importDefault(require("./catchAsync"));
+const validateRequest = (schema) => {
+    return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        yield schema.parseAsync({
+            body: req.body,
+        });
+        next();
+    }));
+};
+exports.default = validateRequest;
