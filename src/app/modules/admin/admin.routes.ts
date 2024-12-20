@@ -8,7 +8,7 @@ const router = Router();
 // Route to block a user
 router.patch(
   '/users/:userId/block',
-  AuthGuard('admin'),
+  AuthGuard(USER_ROLE.admin),
   AdminControllers.blockUser,
 );
 

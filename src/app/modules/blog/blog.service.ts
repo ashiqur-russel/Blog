@@ -89,7 +89,7 @@ const updateBlog = async (
   id: string,
   updatedData: Partial<IBlog>,
   token: string,
-): Promise<void> => {
+): Promise<any> => {
   const user = await getUserDetails(token);
 
   if (!user) {
@@ -112,10 +112,14 @@ const updateBlog = async (
     );
   }
 
-  await Blog.findByIdAndUpdate(id, updatedData, {
+  const updatedBlog = Blog.findByIdAndUpdate(id, updatedData, {
     new: true,
     runValidators: true,
-  });
+  })
+    .populate('author', 'name email')
+    .select('-isPublished -createdAt -updatedAt -__v');
+
+  return updatedBlog;
 };
 
 export const BlogServices = {
