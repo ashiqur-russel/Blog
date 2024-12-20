@@ -18,11 +18,11 @@ const response_1 = __importDefault(require("../../utils/response"));
 const http_status_1 = __importDefault(require("http-status"));
 const blog_service_1 = require("./blog.service");
 const getAllBlogs = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield blog_service_1.BlogServices.getAllBlogs();
+    const result = yield blog_service_1.BlogServices.getAllBlogs(req.query);
     (0, response_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Blogs Retrieved Successfully',
+        message: 'Blogs fetched Successfully',
         data: result,
     });
 }));
@@ -32,7 +32,7 @@ const createBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     (0, response_1.default)(res, {
         statusCode: http_status_1.default.CREATED,
         success: true,
-        message: 'Blog Created Successfully',
+        message: 'Blog created Successfully',
         data: result,
     });
 }));
@@ -46,8 +46,22 @@ const deleteBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         message: 'Blog deleted successfully',
     });
 }));
+const updateBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const token = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization;
+    const { id } = req.params;
+    const updatedData = req.body;
+    const result = yield blog_service_1.BlogServices.updateBlog(id, updatedData, token);
+    (0, response_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Blog updated successfully',
+        data: result,
+    });
+}));
 exports.BlogControllers = {
     createBlog,
     getAllBlogs,
     deleteBlog,
+    updateBlog,
 };

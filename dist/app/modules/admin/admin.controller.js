@@ -26,6 +26,16 @@ const blockUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
         message: 'User blocked successfully',
     });
 }));
+const deleteBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    yield admin_services_1.AdminServices.deleteBlog(id);
+    (0, response_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Blog deleted successfully',
+    });
+}));
 exports.AdminControllers = {
     blockUser,
+    deleteBlog,
 };
