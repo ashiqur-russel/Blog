@@ -4,12 +4,12 @@ import httpStatus from 'http-status';
 import { BlogServices } from './blog.service';
 
 const getAllBlogs = catchAsync(async (req, res) => {
-  const result = await BlogServices.getAllBlogs();
+  const result = await BlogServices.getAllBlogs(req.query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Blogs Retrieved Successfully',
+    message: 'Blogs fetched Successfully',
     data: result,
   });
 });
@@ -21,7 +21,7 @@ const createBlog = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
-    message: 'Blog Created Successfully',
+    message: 'Blog created Successfully',
     data: result,
   });
 });

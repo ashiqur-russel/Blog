@@ -11,7 +11,7 @@ router.get('/', BlogControllers.getAllBlogs);
 
 router.post(
   '/create-blog',
-  AuthGuard('user'),
+  AuthGuard(USER_ROLE.user),
   validateRequest(BlogValidation.createBlogValidationSchema),
   BlogControllers.createBlog,
 );
