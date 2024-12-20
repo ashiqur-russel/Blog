@@ -12,20 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserControllers = void 0;
-const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
+exports.AdminControllers = void 0;
 const response_1 = __importDefault(require("../../utils/response"));
+const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
+const admin_services_1 = require("./admin.services");
 const http_status_1 = __importDefault(require("http-status"));
-const user_service_1 = require("./user.service");
-const getAllUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_service_1.UserServices.getAllUsers();
+const blockUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.params;
+    yield admin_services_1.AdminServices.blockUser(userId);
     (0, response_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Users Retieved Successful',
-        data: result,
+        message: 'User blocked successfully',
     });
 }));
-exports.UserControllers = {
-    getAllUser,
+exports.AdminControllers = {
+    blockUser,
 };

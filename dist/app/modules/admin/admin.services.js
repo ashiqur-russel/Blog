@@ -12,20 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserControllers = void 0;
-const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
-const response_1 = __importDefault(require("../../utils/response"));
+exports.AdminServices = void 0;
+const AppError_1 = __importDefault(require("../../errors/AppError"));
+const user_model_1 = require("../user/user.model");
 const http_status_1 = __importDefault(require("http-status"));
-const user_service_1 = require("./user.service");
-const getAllUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_service_1.UserServices.getAllUsers();
-    (0, response_1.default)(res, {
-        statusCode: http_status_1.default.OK,
-        success: true,
-        message: 'Users Retieved Successful',
-        data: result,
-    });
-}));
-exports.UserControllers = {
-    getAllUser,
+const blockUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield user_model_1.User.findById(userId);
+    if (!user) {
+        throw new AppError_1.default('User not found', http_status_1.default.NOT_FOUND);
+    }
+    if (user.isBlocked) {
+        throw new AppError_1.default('User is already blocked', http_status_1.default.BAD_REQUEST);
+    }
+    yield user_model_1.User.findByIdAndUpdate(userId, { isBlocked: true }, { new: true, runValidators: true });
+});
+exports.AdminServices = {
+    blockUser,
 };
