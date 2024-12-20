@@ -2,7 +2,6 @@ import mongoose, { Schema } from 'mongoose';
 import { IUser, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
-import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const userSchema = new Schema<IUser, UserModel>(
   {
@@ -38,10 +37,8 @@ export const userSchema = new Schema<IUser, UserModel>(
 );
 
 userSchema.pre('save', async function (next) {
-  const user = this;
-
-  user.password = await bcrypt.hash(
-    user.password,
+  this.password = await bcrypt.hash(
+    this.password,
     Number(config.bcrypt_salt_rounds),
   );
 

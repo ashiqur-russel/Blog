@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import AppError from '../errors/AppError';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config';
-import { IUser, TUserRole } from '../modules/user/user.interface';
+import { TUserRole } from '../modules/user/user.interface';
 import { User } from '../modules/user/user.model';
 import catchAsync from '../utils/catchAsync';
 import httpStatus from 'http-status';

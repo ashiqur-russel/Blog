@@ -1,6 +1,5 @@
-import { ZodError, ZodIssue } from 'zod';
 import { TErrorSource } from '../types/error';
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 
 const handleMongooseValidationError = (err: mongoose.Error.ValidationError) => {
   const statusCode = 400;

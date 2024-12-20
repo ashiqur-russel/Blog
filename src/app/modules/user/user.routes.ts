@@ -1,5 +1,4 @@
 import express from 'express';
-import validateRequest from '../../utils/validateRequest';
 import { AuthGuard } from '../../middlewares/authGuard';
 import { UserControllers } from './user.controller';
 

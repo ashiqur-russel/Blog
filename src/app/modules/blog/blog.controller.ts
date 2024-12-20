@@ -30,7 +30,7 @@ const deleteBlog = catchAsync(async (req, res) => {
   const token = req.headers.authorization;
 
   const { id } = req.params;
-  const result = await BlogServices.deleteBlog(id, token as string);
+  await BlogServices.deleteBlog(id, token as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

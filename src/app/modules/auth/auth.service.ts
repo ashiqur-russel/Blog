@@ -3,9 +3,7 @@ import AppError from '../../errors/AppError';
 import { IUser } from '../user/user.interface';
 import { User } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import httpStatus from 'http-status';
-import e from 'express';
+import jwt from 'jsonwebtoken';
 
 const loginUser = async (payload: TLoginUser) => {
   const { email, password } = payload;

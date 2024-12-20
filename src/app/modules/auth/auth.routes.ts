@@ -2,7 +2,6 @@ import express from 'express';
 import { AuthControllers } from './auth.controller';
 import validateRequest from '../../utils/validateRequest';
 import { AuthValidation } from './auth.validation';
-import { AuthGuard } from '../../middlewares/authGuard';
 
 const router = express.Router();
 router.post(

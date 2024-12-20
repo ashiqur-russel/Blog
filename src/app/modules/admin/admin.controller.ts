@@ -6,8 +6,7 @@ import httpStatus from 'http-status';
 
 const blockUser = catchAsync(async (req: Request, res: Response) => {
   const { userId } = req.params;
-  console.log(req.params);
-  const result = await AdminServices.blockUser(userId);
+  await AdminServices.blockUser(userId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import mongoose, { Model } from 'mongoose';
 import { USER_ROLE } from './user.constant';
 

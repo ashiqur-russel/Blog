@@ -15,6 +15,9 @@ const createBlog = async (payload: IBlog, token: string): Promise<any> => {
 
   try {
     const user = await getUserDetails(token);
+    if (!user) {
+      throw new AppError('User not found', httpStatus.NOT_FOUND);
+    }
 
     const newBlog = new Blog({ ...payload, author: user?._id });
 
@@ -24,7 +27,11 @@ const createBlog = async (payload: IBlog, token: string): Promise<any> => {
       .select('-isPublished -createdAt -updatedAt -__v');
 
     return populatedBlog;
-  } catch (error) {
+  } catch (error: any) {
+    if (error instanceof AppError) {
+      throw error;
+    }
+
     throw new AppError('Failed to create blog', httpStatus.BAD_REQUEST);
   }
 };
