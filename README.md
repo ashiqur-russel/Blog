@@ -75,30 +75,32 @@
 
 ## 🚀 API Endpoints
 
-### 👥 User Endpoints
+### 👥 **User Endpoints**
 
-<ul>
-  <li><code>POST /register</code> - Register a new user.</li>
-  <li><code>POST /login</code> - Login and obtain a JWT token.</li>
-  <li><code>GET /user</code> - Retrieve logged-in user's details (Admin only).</li>
-</ul>
+| Method   | URI         | Action                                     |
+| -------- | ----------- | ------------------------------------------ |
+| `POST`   | `/register` | Register a new user                        |
+| `POST`   | `/login`    | Login and obtain a JWT token               |
+| `GET`    | `/user`     | Retrieve logged-in user's details (Admin only) |
 
-### 👨‍💼 Admin Endpoints
+### 👨‍💼 **Admin Endpoints**
 
-<ul>
-  <li><code>PATCH /api/admin/users/:userId/block</code> - Block a user by setting <code>isBlocked</code> to true.</li>
-  <li><code>DELETE /api/admin/blogs/:id</code> - Delete any blog by its ID.</li>
-</ul>
+| Method   | URI                              | Action                                     |
+| -------- | -------------------------------- | ------------------------------------------ |
+| `PATCH`  | `/api/admin/users/:userId/block` | Block a user by setting `isBlocked` to true |
+| `DELETE` | `/api/admin/blogs/:id`           | Delete any blog by its ID                  |
 
-### 📝 Blog Endpoints
+### 📝 **Blog Endpoints**
 
-<ul>
-  <li><code>GET /api/blogs</code> - Retrieve all blogs (with search, sort, and filter options).</li>
-  <li><code>GET /api/blogs/:id</code> - Retrieve a specific blog by ID.</li>
-  <li><code>POST /api/blogs</code> - Create a new blog (authenticated users only).</li>
-  <li><code>PATCH /api/blogs/:id</code> - Update an existing blog (only by the author).</li>
-  <li><code>DELETE /api/blogs/:id</code> - Delete a blog (only by the author).</li>
-</ul>
+| Method   | URI                   | Action                                             |
+| -------- | --------------------- | -------------------------------------------------- |
+| `GET`    | `/api/blogs`          | Retrieve all blogs (with search, sort, and filter options) |
+| `GET`    | `/api/blogs/:id`      | Retrieve a specific blog by ID                    |
+| `POST`   | `/api/blogs`          | Create a new blog (authenticated users only)      |
+| `PATCH`  | `/api/blogs/:id`      | Update an existing blog (only by the author)      |
+| `DELETE` | `/api/blogs/:id`      | Delete a blog (only by the author)                |
+
+
 
 ---
 
