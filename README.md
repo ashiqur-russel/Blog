@@ -119,7 +119,7 @@ cd Blog
 npm install
 ```
 
-### 2️⃣ Install Dependencies
+### 2️⃣ Create `.env` file at root 
 <p>Create a <code>.env</code> file in the root directory and include:</p>
 
 ```bash
