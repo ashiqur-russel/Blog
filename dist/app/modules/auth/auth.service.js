@@ -28,7 +28,9 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
             email,
             role: user.role,
         };
-        const token = `Bearer ${jsonwebtoken_1.default.sign(JwtPayload, config_1.default.jwt_access_secret, { expiresIn: config_1.default.jwt_access_secret_expires })}`;
+        const token = jsonwebtoken_1.default.sign(JwtPayload, config_1.default.jwt_access_secret, {
+            expiresIn: config_1.default.jwt_access_secret_expires,
+        });
         return { token };
     }
     else {

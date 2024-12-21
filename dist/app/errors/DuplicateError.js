@@ -15,7 +15,7 @@ const handleDuplicateError = (err) => {
     return {
         success: false,
         statusCode,
-        message: 'Invalid ID',
+        message: 'Duplicate Error',
         error: errorSources,
     };
 };
