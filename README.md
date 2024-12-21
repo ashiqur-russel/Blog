@@ -25,7 +25,42 @@
 9. [x] Role-based authorization (Admin and User).
 10. [x] Proper error handling (validation errors, authentication errors, etc.).
 
+### 🗂️ ER Diagram
+```plainText
+        
 
+            
+                  +-------------------+       1           n       +------------------+
+                  |       Users       |-------------------------->|      Blogs       |
+                  +-------------------+                           +------------------+
+                  | id (PK)           |                           | id (PK)          |
+                  | name              |                           | title            |
+                  | email             |                           | content          |
+                  | password          |                           | authorId (FK)    |
+                  | role              |                           | createdAt        |
+                  | isBlocked         |                           | updatedAt        |
+                  | createdAt         |                           | isPublished      |
+                  | updatedAt         |                           +------------------+
+                  +-------------------+
+                         ^
+                         |
+                         |
+                  +-------------------+
+                  |     Register      |
+                  +-------------------+
+                  | name              |
+                  | email             |
+                  | password          |
+                  +-------------------+
+
+                         +-------------------+       +-------------------+       +-------------------+
+                         |      Login        | ----> |       JWT         | ----> |       Access      |
+                         +-------------------+       +-------------------+       +-------------------+
+                         | email             |       | token             |       | tokenType         |
+                         | password          |       | expiresAt         |       +-------------------+
+                         +-------------------+       +-------------------+      
+
+```
 
 ## ✨ Features
 
