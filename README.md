@@ -85,6 +85,14 @@
 
 ### 👨‍💼 **Admin Endpoints**
 
+**Admin Credentials for Testing:**
+```json
+{
+  "email": "admin@gmail.com",
+  "password": "12345"
+}
+```
+
 | Method   | URI                              | Action                                     |
 | -------- | -------------------------------- | ------------------------------------------ |
 | `PATCH`  | `/api/admin/users/:userId/block` | Block a user by setting `isBlocked` to true |
