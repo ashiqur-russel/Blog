@@ -12,6 +12,21 @@
 
 </div>
 
+### ✅ Requirement Analysis
+
+1. [x] Users can register.
+2. [x] Users can log in.
+3. [x] Users can create blogs.
+4. [x] Users can update their own blogs.
+5. [x] Users can delete their own blogs.
+6. [x] Admin can block users.
+7. [x] Admin can delete any user’s blog.
+8. [x] Secure authentication using JWT.
+9. [x] Role-based authorization (Admin and User).
+10. [x] Proper error handling (validation errors, authentication errors, etc.).
+
+
+
 ## ✨ Features
 
 ### 🧑‍💻 User Roles
