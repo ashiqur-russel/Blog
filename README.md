@@ -149,5 +149,5 @@ npm run start:dev
 <ol> <li><strong>Register</strong>: Users register with a username, email, and password.</li> <li><strong>Login</strong>: Users log in to receive a JWT token for authenticated access.</li> <li><strong>Token Usage</strong>: Include the JWT token in the <code>Authorization</code> header for all protected routes.</li> </ol>
 
 🛡️ Security Considerations
-<ul> <li><strong>Password Hashing</strong>: All passwords are securely hashed using <code>bcrypt</code>.</li> <li><strong>JWT Authentication</strong>: Tokens ensure secure, stateless user authentication.</li> <li><strong>Role Validation</strong>: Middleware enforces admin/user permissions for endpoints.</li> </ul>
+<ol> <li><strong>Password Hashing</strong>: All passwords are securely hashed using <code>bcrypt</code>.</li> <li><strong>JWT Authentication</strong>: Tokens ensure secure, stateless user authentication.</li> <li><strong>Role Validation</strong>: Middleware enforces admin/user permissions for endpoints.</li> </ol>
 
