@@ -20,7 +20,10 @@ const loginUser = async (payload: TLoginUser) => {
       role: user.role,
     };
 
-    const token = `Bearer ${jwt.sign(JwtPayload, config.jwt_access_secret as string, { expiresIn: config.jwt_access_secret_expires })}`;
+    const token = jwt.sign(JwtPayload, config.jwt_access_secret as string, {
+      expiresIn: config.jwt_access_secret_expires,
+    });
+
     return { token };
   } else {
     throw new AppError('Invalid credentials', 401);
