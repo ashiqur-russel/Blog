@@ -9,7 +9,8 @@ const loginValidationSchema = zod_1.z.object({
     }),
 });
 const registerValidationSchema = zod_1.z.object({
-    body: zod_1.z.object({
+    body: zod_1.z
+        .object({
         name: zod_1.z
             .string({ required_error: 'Name is required' })
             .trim()
@@ -27,7 +28,8 @@ const registerValidationSchema = zod_1.z.object({
             .trim()
             .max(20, 'Password can not be more than 20 characters.')
             .min(4, 'Password can not be less than 4 characters.'),
-    }),
+    })
+        .strict(),
 });
 exports.AuthValidation = {
     loginValidationSchema,

@@ -1,8 +1,7 @@
 import config from '../../config';
 import AppError from '../../errors/AppError';
-import { IUser } from '../user/user.interface';
 import { User } from '../user/user.model';
-import { TLoginUser } from './auth.interface';
+import { TLoginUser, TRegisterUser } from './auth.interface';
 import jwt from 'jsonwebtoken';
 
 const loginUser = async (payload: TLoginUser) => {
@@ -30,7 +29,7 @@ const loginUser = async (payload: TLoginUser) => {
   }
 };
 
-const registerUser = async (payload: IUser) => {
+const registerUser = async (payload: TRegisterUser) => {
   return await User.create(payload);
 };
 
