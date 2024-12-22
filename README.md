@@ -26,10 +26,11 @@
 10. [x] Proper error handling (validation errors, authentication errors, etc.).
 
 ### 🗂️ ER Diagram
-```plainText
-        
 
-            
+```plainText
+
+
+
                   +-------------------+       1           n       +------------------+
                   |       Users       |-------------------------->|      Blogs       |
                   +-------------------+                           +------------------+
@@ -58,7 +59,7 @@
                          +-------------------+       +-------------------+       +-------------------+
                          | email             |       | token             |       | tokenType         |
                          | password          |       | expiresAt         |       +-------------------+
-                         +-------------------+       +-------------------+      
+                         +-------------------+       +-------------------+
 
 ```
 
@@ -127,15 +128,16 @@
 
 ### 👥 **User Endpoints**
 
-| Method   | URI         | Action                                     |
-| -------- | ----------- | ------------------------------------------ |
-| `POST`   | `/register` | Register a new user                        |
-| `POST`   | `/login`    | Login and obtain a JWT token               |
-| `GET`    | `/user`     | Retrieve logged-in user's details (Admin only) |
+| Method | URI         | Action                                         |
+| ------ | ----------- | ---------------------------------------------- |
+| `POST` | `/register` | Register a new user                            |
+| `POST` | `/login`    | Login and obtain a JWT token                   |
+| `GET`  | `/user`     | Retrieve logged-in user's details (Admin only) |
 
 ### 👨‍💼 **Admin Endpoints**
 
 **Admin Credentials for Testing:**
+
 ```json
 {
   "email": "admin@gmail.com",
@@ -143,22 +145,20 @@
 }
 ```
 
-| Method   | URI                              | Action                                     |
-| -------- | -------------------------------- | ------------------------------------------ |
+| Method   | URI                              | Action                                      |
+| -------- | -------------------------------- | ------------------------------------------- |
 | `PATCH`  | `/api/admin/users/:userId/block` | Block a user by setting `isBlocked` to true |
-| `DELETE` | `/api/admin/blogs/:id`           | Delete any blog by its ID                  |
+| `DELETE` | `/api/admin/blogs/:id`           | Delete any blog by its ID                   |
 
 ### 📝 **Blog Endpoints**
 
-| Method   | URI                   | Action                                             |
-| -------- | --------------------- | -------------------------------------------------- |
-| `GET`    | `/api/blogs`          | Retrieve all blogs (with search, sort, and filter options) |
-| `GET`    | `/api/blogs/:id`      | Retrieve a specific blog by ID                    |
-| `POST`   | `/api/blogs`          | Create a new blog (authenticated users only)      |
-| `PATCH`  | `/api/blogs/:id`      | Update an existing blog (only by the author)      |
-| `DELETE` | `/api/blogs/:id`      | Delete a blog (only by the author)                |
-
-
+| Method   | URI              | Action                                                     |
+| -------- | ---------------- | ---------------------------------------------------------- |
+| `GET`    | `/api/blogs`     | Retrieve all blogs (with search, sort, and filter options) |
+| `GET`    | `/api/blogs/:id` | Retrieve a specific blog by ID                             |
+| `POST`   | `/api/blogs`     | Create a new blog (authenticated users only)               |
+| `PATCH`  | `/api/blogs/:id` | Update an existing blog (only by the author)               |
+| `DELETE` | `/api/blogs/:id` | Delete a blog (only by the author)                         |
 
 ---
 
@@ -177,7 +177,8 @@ cd Blog
 npm install
 ```
 
-### 2️⃣ Create `.env` file at root 
+### 2️⃣ Create `.env` file at root
+
 <p>Create a <code>.env</code> file in the root directory and include:</p>
 
 ```bash
@@ -196,16 +197,19 @@ DATABASE_URL=mongodb+srv://<username>:<password>@cluster0.mongodb.net/blog?retry
 SALT=10
 NODE_ENV=production
 ```
+
 4️⃣ Start the Server
 
 ```bash
 npm run start:dev
 ```
+
 <p>Access the API at: <a href="http://localhost:5000" target="_blank">http://localhost:5000</a></p>
 
 🔑 Authentication Flow
+
 <ol> <li><strong>Register</strong>: Users register with a username, email, and password.</li> <li><strong>Login</strong>: Users log in to receive a JWT token for authenticated access.</li> <li><strong>Token Usage</strong>: Include the JWT token in the <code>Authorization</code> header for all protected routes.</li> </ol>
 
 🛡️ Security Considerations
-<ol> <li><strong>Password Hashing</strong>: All passwords are securely hashed using <code>bcrypt</code>.</li> <li><strong>JWT Authentication</strong>: Tokens ensure secure, stateless user authentication.</li> <li><strong>Role Validation</strong>: Middleware enforces admin/user permissions for endpoints.</li> </ol>
 
+<ol> <li><strong>Password Hashing</strong>: All passwords are securely hashed using <code>bcrypt</code>.</li> <li><strong>JWT Authentication</strong>: Tokens ensure secure, stateless user authentication.</li> <li><strong>Role Validation</strong>: Middleware enforces admin/user permissions for endpoints.</li> </ol>
