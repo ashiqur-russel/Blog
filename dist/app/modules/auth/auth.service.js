@@ -21,7 +21,7 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = payload;
     const user = yield user_model_1.User.isUserExistsByEmail(email);
     if (!user) {
-        throw new AppError_1.default('User Not exist with the email id !', 409);
+        throw new AppError_1.default('User Not exist with the email id !', 404);
     }
     if (yield user_model_1.User.isPasswordMatched(password, user.password)) {
         const JwtPayload = {

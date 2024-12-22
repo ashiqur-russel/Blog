@@ -10,7 +10,7 @@ const loginUser = async (payload: TLoginUser) => {
   const user = await User.isUserExistsByEmail(email);
 
   if (!user) {
-    throw new AppError('User Not exist with the email id !', 409);
+    throw new AppError('User Not exist with the email id !', 404);
   }
 
   if (await User.isPasswordMatched(password, user.password)) {

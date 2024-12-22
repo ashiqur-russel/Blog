@@ -29,8 +29,7 @@ const registerValidationSchema = z.object({
         .trim()
         .max(20, 'Password can not be more than 20 characters.')
         .min(4, 'Password can not be less than 4 characters.'),
-    })
-    .strict(),
+    }),
 });
 
 export const AuthValidation = {
