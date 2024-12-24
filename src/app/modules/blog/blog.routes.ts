@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', BlogControllers.getAllBlogs);
 
 router.post(
-  '/create-blog',
+  '/',
   AuthGuard(USER_ROLE.user),
   validateRequest(BlogValidation.createBlogValidationSchema),
   BlogControllers.createBlog,
