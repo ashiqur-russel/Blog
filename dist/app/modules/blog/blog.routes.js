@@ -12,7 +12,7 @@ const blog_validation_1 = require("./blog.validation");
 const user_constant_1 = require("../user/user.constant");
 const router = express_1.default.Router();
 router.get('/', blog_controller_1.BlogControllers.getAllBlogs);
-router.post('/create-blog', (0, authGuard_1.AuthGuard)(user_constant_1.USER_ROLE.user), (0, validateRequest_1.default)(blog_validation_1.BlogValidation.createBlogValidationSchema), blog_controller_1.BlogControllers.createBlog);
+router.post('/', (0, authGuard_1.AuthGuard)(user_constant_1.USER_ROLE.user), (0, validateRequest_1.default)(blog_validation_1.BlogValidation.createBlogValidationSchema), blog_controller_1.BlogControllers.createBlog);
 router.patch('/:id', (0, authGuard_1.AuthGuard)(user_constant_1.USER_ROLE.user), (0, validateRequest_1.default)(blog_validation_1.BlogValidation.updateBlogValidationSchema), blog_controller_1.BlogControllers.updateBlog);
 router.delete('/:id', (0, authGuard_1.AuthGuard)(user_constant_1.USER_ROLE.user), blog_controller_1.BlogControllers.deleteBlog);
 exports.BlogRoutes = router;
