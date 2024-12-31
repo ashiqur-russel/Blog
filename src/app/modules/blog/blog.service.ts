@@ -73,6 +73,24 @@ const getUserDetails = async (token: string) => {
   return await User.getUserDetails(email);
 };
 
+const getBlogbyId = async (id: string): Promise<IBlog | null> => {
+  try {
+    const blog = await Blog.findById({ _id: id });
+
+    if (!blog) {
+      throw new AppError('Blog not found', httpStatus.NOT_FOUND);
+    }
+
+    return blog;
+  } catch (error) {
+    if (error instanceof AppError) {
+      throw error;
+    }
+
+    throw new AppError('Failed to get Blog', httpStatus.INTERNAL_SERVER_ERROR);
+  }
+};
+
 const deleteBlog = async (id: string, token: string): Promise<void> => {
   try {
     const user = await getUserDetails(token);
@@ -152,4 +170,5 @@ export const BlogServices = {
   getAllBlogs,
   deleteBlog,
   updateBlog,
+  getBlogbyId,
 };

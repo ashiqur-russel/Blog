@@ -4,6 +4,7 @@ import httpStatus from 'http-status';
 import { BlogServices } from './blog.service';
 
 const getAllBlogs = catchAsync(async (req, res) => {
+  console.log('hello');
   const result = await BlogServices.getAllBlogs(req.query);
 
   sendResponse(res, {
@@ -26,10 +27,23 @@ const createBlog = catchAsync(async (req, res) => {
   });
 });
 
+const getBlogById = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await BlogServices.getBlogbyId(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Blog found successfully',
+    data: result,
+  });
+});
+
 const deleteBlog = catchAsync(async (req, res) => {
   const token = req.headers.authorization;
 
   const { id } = req.params;
+
   await BlogServices.deleteBlog(id, token as string);
 
   sendResponse(res, {
@@ -63,4 +77,5 @@ export const BlogControllers = {
   getAllBlogs,
   deleteBlog,
   updateBlog,
+  getBlogById,
 };

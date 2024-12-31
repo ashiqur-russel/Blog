@@ -16,6 +16,8 @@ router.post(
   BlogControllers.createBlog,
 );
 
+router.get('/:id', BlogControllers.getBlogById);
+
 router.patch(
   '/:id',
   AuthGuard(USER_ROLE.user),
