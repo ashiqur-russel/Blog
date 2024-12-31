@@ -69,6 +69,21 @@ const getUserDetails = (token) => __awaiter(void 0, void 0, void 0, function* ()
     const { email } = decoded;
     return yield user_model_1.User.getUserDetails(email);
 });
+const getBlogbyId = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const blog = yield blog_model_1.Blog.findById({ _id: id });
+        if (!blog) {
+            throw new AppError_1.default('Blog not found', http_status_1.default.NOT_FOUND);
+        }
+        return blog;
+    }
+    catch (error) {
+        if (error instanceof AppError_1.default) {
+            throw error;
+        }
+        throw new AppError_1.default('Failed to get Blog', http_status_1.default.INTERNAL_SERVER_ERROR);
+    }
+});
 const deleteBlog = (id, token) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
@@ -118,4 +133,5 @@ exports.BlogServices = {
     getAllBlogs,
     deleteBlog,
     updateBlog,
+    getBlogbyId,
 };

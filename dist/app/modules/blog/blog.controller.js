@@ -18,6 +18,7 @@ const response_1 = __importDefault(require("../../utils/response"));
 const http_status_1 = __importDefault(require("http-status"));
 const blog_service_1 = require("./blog.service");
 const getAllBlogs = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('hello');
     const result = yield blog_service_1.BlogServices.getAllBlogs(req.query);
     (0, response_1.default)(res, {
         statusCode: http_status_1.default.OK,
@@ -33,6 +34,16 @@ const createBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         statusCode: http_status_1.default.CREATED,
         success: true,
         message: 'Blog created Successfully',
+        data: result,
+    });
+}));
+const getBlogById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield blog_service_1.BlogServices.getBlogbyId(id);
+    (0, response_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Blog found successfully',
         data: result,
     });
 }));
@@ -64,4 +75,5 @@ exports.BlogControllers = {
     getAllBlogs,
     deleteBlog,
     updateBlog,
+    getBlogById,
 };
